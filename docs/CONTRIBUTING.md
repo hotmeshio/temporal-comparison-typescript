@@ -1,38 +1,6 @@
 # Contributing to Temporal Patterns
 
-Thank you for contributing to **temporal-patterns-typescript**! This repository is designed to demonstrate patterns using Temporal workflows, and contributions that expand pattern coverage or improve existing examples are highly valued.
-
----
-
-## Folder and File Structure
-
-The project is organized with the following structure:
-
-```
-patterns/
-  <pattern-name>/
-    index.test.ts      # Main test file for the pattern
-    src/
-      attributes.ts    # Attribute definitions for the pattern
-      workflows.ts     # Workflow definitions for the pattern
-```
-
-## Key Guidelines
-
-1. Each pattern resides in its own directory under `patterns/`.
-2. Add or update tests in the `index.test.ts` file within the relevant pattern's directory.
-3. Workflow and attribute definitions belong in the `src/` folder under the appropriate pattern directory.
-
-## Writing Tests
-
-1. **Refer to Existing Tests**: Check the `index.test.ts` files in other patterns for examples of file organization and coding style.
-2. **Create or Update Tests**:
-   - Place new tests in the `index.test.ts` file for the relevant pattern.
-   - Use the same structure and naming conventions as existing tests.
-3. **Run Tests Locally**: Ensure your tests pass before submitting:
-   ```bash
-   npm test
-   ```
+Thank you for contributing to **temporal-side-by-side-typescript**! This repository is designed to demonstrate similarities between platforms, and contributions that expand pattern coverage or improve existing examples are highly valued.
 
 ---
 
