@@ -1,13 +1,12 @@
 # Apples to Apples: Temporal vs HotMesh vs MeshFlow
 
-The 3 modules in the examples/ directory run the same workflow using a different engine. The inputs and outputs are the same for all 3 examples. It is meant to show how the same workflow can be run on different engines.
+The `examples/` directory includes three modules that execute the same workflow using different engines. Each module produces identical inputs and outputs, showcasing how the same workflow can be implemented across these engines:
 
-- `temporal` Temporal is a workflow engine that runs on a central app server.
-- `hotmesh` HotMesh is a workflow engine that runs without a central app server.
-- `meshflow` Meshflow is HotMesh's emulation of Temporal's workflow engine.
+- **`temporal`**: Temporal is a workflow engine that operates on a central app server.
+- **`hotmesh`**: HotMesh is a serverless workflow engine leveraging decentralized message routers.
+- **`meshflow`**: MeshFlow is HotMesh’s emulation of Temporal’s workflow engine.
 
-
-Although the APIs are the same, HotMesh is serverless and uses decentralized message routers. The backend is pluggable and interchangeably supports Postgres, Redis, and NATS.
+HotMesh is serverless, with a pluggable backend that supports Postgres, Redis, and NATS interchangeably, while the APIs remain consistent across engines.
 
 | Temporal | HotMesh |
 |:--------:|:-------:|
@@ -26,15 +25,15 @@ Although the APIs are the same, HotMesh is serverless and uses decentralized mes
    git clone https://github.com/hotmeshio/temporal-side-by-side-typescript.git
    cd temporal-side-by-side-typescript
    ```
-2. **Install** the dependencies
+2. **Install Dependencies**
     ```bash
     npm install
     ```
-3. **Startup Docker**
+3. **Start Docker**
     ```bash
     npm run docker:up
     ```
-4. **Shutdown Docker**
+4. **Stop Docker**
     ```bash
     npm run docker:down
     ```
@@ -43,22 +42,37 @@ Although the APIs are the same, HotMesh is serverless and uses decentralized mes
     npm run docker:reset
     ```
 
-Test Temporal by running an HTTP GET once the container loads:
-```bash
-curl http://localhost:3010/api/v1/test/temporal
-```
+### Testing the Engines
 
-Test HotMesh by running an HTTP GET once the container loads:
-```bash
-curl http://localhost:3010/api/v1/test/hotmesh
-```
+You can test each engine by sending HTTP GET requests to the following endpoints after the containers are loaded:
 
-Test MeshFlow by running an HTTP GET once the container loads:
-```bash
-curl http://localhost:3010/api/v1/test/meshflow
-```
+- **Temporal**:
+  ```bash
+  curl http://localhost:3010/api/v1/test/temporal
+  ```
+- **HotMesh**:
+  ```bash
+  curl http://localhost:3010/api/v1/test/hotmesh
+  ```
+- **MeshFlow**:
+  ```bash
+  curl http://localhost:3010/api/v1/test/meshflow
+  ```
+- **All Engines**:
+  ```bash
+  curl http://localhost:3010/api/v1/test
+  ```
 
-Test all 3 engines by running an HTTP GET once the container loads:
-```bash
-curl http://localhost:3010/api/v1/test
-```
+## Additional Resources
+
+- **[SDK Documentation](https://docs.hotmesh.io)**: Comprehensive documentation and examples for all patterns.
+- **[NPM Package](https://www.npmjs.com/package/@hotmeshio/hotmesh)**: Download the HotMesh package.
+- **[Contribution Guidelines](./docs/CONTRIBUTING.md)**: Instructions for contributing to the project.
+
+## License
+
+This project is licensed under the Apache 2.0 License. See the LICENSE file for details.
+
+## Disclaimer
+
+This project is not affiliated with, endorsed by, or sponsored by Temporal Technologies, Inc. Temporal is a trademark of Temporal Technologies, Inc., and all references to Temporal and related technologies are for educational and demonstration purposes only.
