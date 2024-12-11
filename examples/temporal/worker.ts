@@ -15,6 +15,13 @@ export const runWorker = async () => {
   await worker.run();
 }
 
+/**
+ * Autoruns the Temporal worker in its own process. (The MeshFlow
+ * worker also runs in its own process.) No reason for this, just
+ * wanted to show distributed workers for each platform, as 
+ * this is essentially their specialty: to broker/orchestrate
+ * distributed workflows.
+ */
 runWorker().catch((err) => {
   console.error('Failed to start worker:', err);
   process.exit(1);

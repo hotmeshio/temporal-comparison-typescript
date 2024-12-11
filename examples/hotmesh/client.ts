@@ -4,6 +4,8 @@ import { connection } from '../connection';
 /**
  * Initializes a HotMesh engine router. The router is bound to
  * the `hotmesh` namespace and connects to a Postgres database.
+ * HotMesh doesn't use TypeScript for authoring workflows and
+ * instead has its own YAML-based workflow authoring system.
  */
 export const initEngineRouter = async () => {
   const hotMesh = await HotMesh.init({

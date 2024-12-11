@@ -1,4 +1,4 @@
-import { Connection, Client, MeshFlow } from '@hotmeshio/hotmesh';
+import { Connection, Client } from '@hotmeshio/hotmesh';
 import { connection as dbConnection } from '../connection';
 import { v4 as uuid } from 'uuid';
 
