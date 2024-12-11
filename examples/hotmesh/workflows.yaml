@@ -1,0 +1,90 @@
+app:
+  id: hotmesh
+  version: '1'
+
+  graphs:
+    - subscribes: greetMultiple
+
+      output:
+        schema:
+          type: object
+          properties:
+            greeting1:
+              type: string
+            greeting2:
+              type: string
+            greeting3:
+              type: string
+
+      activities:
+        t1:
+          type: trigger
+
+        w1:
+          type: worker
+          topic: greet
+          input:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            maps:
+              name: Alice
+          output:
+            schema:
+              type: object
+              properties:
+                greeting:
+                  type: string
+          job:
+            maps:
+              greeting1: '{$self.output.data.greeting}'
+
+        w2:
+          type: worker
+          topic: greet
+          input:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            maps:
+              name: Bob
+          output:
+            schema:
+              type: object
+              properties:
+                greeting:
+                  type: string
+          job:
+            maps:
+              greeting2: '{$self.output.data.greeting}'
+
+        w3:
+          type: worker
+          topic: greet
+          input:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            maps:
+              name: Charlie
+          output:
+            schema:
+              type: object
+              properties:
+                greeting:
+                  type: string
+          job:
+            maps:
+              greeting3: '{$self.output.data.greeting}'
+
+      transitions:
+        t1:
+          - to: w1
+          - to: w2
+          - to: w3
