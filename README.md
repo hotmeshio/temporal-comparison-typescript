@@ -20,8 +20,8 @@ The `examples/` directory includes three modules that execute the same workflow 
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/hotmeshio/temporal-side-by-side-typescript.git
-   cd temporal-side-by-side-typescript
+   git clone https://github.com/hotmeshio/temporal-comparison-typescript.git
+   cd temporal-comparison-typescript
    ```
 2. **Install Dependencies**
     ```bash

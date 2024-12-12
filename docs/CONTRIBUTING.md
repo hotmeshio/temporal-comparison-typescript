@@ -1,6 +1,6 @@
 # Contributing to Temporal Patterns
 
-Thank you for contributing to **temporal-side-by-side-typescript**! This repository is designed to demonstrate similarities between platforms, and contributions that expand pattern coverage or improve existing examples are highly valued.
+Thank you for contributing to **temporal-comparison-typescript**! This repository is designed to demonstrate similarities between platforms, and contributions that expand pattern coverage or improve existing examples are highly valued.
 
 ---
 

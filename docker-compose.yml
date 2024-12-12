@@ -1,4 +1,4 @@
-name: hotmesh-temporal-side-by-side
+name: hotmesh-temporal-comparison
 services:
   postgresql:
     container_name: temporal-postgresql
@@ -67,7 +67,7 @@ services:
     ports:
       - 8080:8080
 
-  dashboard:
+  harness:
     platform: linux/amd64
     build:
       context: .
