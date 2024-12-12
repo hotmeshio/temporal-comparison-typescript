@@ -1,6 +1,6 @@
 # Apples to Apples: Temporal vs HotMesh vs MeshFlow
 
-The `examples/` directory includes three modules that execute the same workflow using different engines. Each module produces identical inputs and outputs, showcasing how the same workflow can be implemented across these engines:
+The `examples/` directory includes three modules that execute the same workflow using different engines. Each module produces identical output, showcasing how the same workflow can be implemented across these engines:
 
 - **`Temporal`**: Temporal is a workflow engine that operates on a central app server.
 - **`HotMesh`**: HotMesh is a serverless workflow engine leveraging decentralized message routers.
