@@ -1,21 +1,13 @@
-/**
- * This is the entry point that starts the HTTP server. It provides
- * a persistent connection to the Temporal, MeshFlow and HotMesh clients
- * and provides access via a RESTful API.
- * 
- * Tests (HTTP GET requests) are available at:
- * 
- * temporal: http://localhost:3010/api/v1/test/temporal
- * meshflow: http://localhost:3010/api/v1/test/meshflow
- * hotmesh: http://localhost:3010/api/v1/test/hotmesh
- * combined: http://localhost:3010/api/v1/test
- */
 import 'dotenv/config';
 import express from 'express';
+import path from 'path';
 import { initializeClients } from './initializers/clients';
 import { testRoutes } from './routes/tests';
 import gracefulShutdown from './utils/gracefulShutdown';
 import { setupTelemetry } from '../modules/tracer';
+
+// Use process.cwd() for a CommonJS-like approach
+const appRoot = process.cwd();
 
 const app = express();
 const port = 3010;
@@ -25,8 +17,10 @@ const port = 3010;
     console.log('Initializing client services...');
     setupTelemetry();
 
+    // Serve the favicon
+    app.use('/favicon.ico', express.static(path.join(appRoot, 'docs/img/favicon.ico')));
+
     // Initialize clients 
-    //(NOTE: HotMesh is late-bound and isn't loaded until the first request)
     const { temporalClient, meshFlowClient } = await initializeClients();
 
     // Attach routes

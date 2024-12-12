@@ -6,11 +6,12 @@ import { v4 as uuid } from 'uuid';
 import { initWorkerRouter } from '../../examples/hotmesh/worker';
 import { initEngineRouter } from '../../examples/hotmesh/client';
 import { getTraceUrl } from '../../modules/tracer';
+import { renderTests } from '../pages/tests';
 
 export const testRoutes = (temporalClient: TemporalClient, hotMeshClient: ClientService) => {
   const router = Router();
 
-  // Start a Temporal Workflow
+  // Workflow functions
   const runTemporalWorkflow = async () => {
     const workflowId = `temporal-${uuid()}`;
     const handle = await temporalClient.workflow.start('greetMultiple', {
@@ -21,7 +22,6 @@ export const testRoutes = (temporalClient: TemporalClient, hotMeshClient: Client
     return handle.result();
   };
 
-  // Start a MeshFlow Workflow
   const runMeshFlowWorkflow = async () => {
     const workflowId = `meshflow-${uuid()}`;
     const handle = await hotMeshClient.workflow.start({
@@ -31,33 +31,26 @@ export const testRoutes = (temporalClient: TemporalClient, hotMeshClient: Client
       workflowName: 'greetMultiple',
       args: [],
     });
-    //would return here, but...
     await handle.result();
-
-    //...we need to fetch the state of the workflow for the trace URL
     return await handle.hotMesh.getState(
       `${handle.hotMesh.appId}.execute`,
       handle.workflowId,
     );
   };
 
-  // Start a HotMesh Workflow
-  let hotMesh: HotMesh; //late bind (sometimes the script that updates the temporal db takes a while)
+  let hotMesh: HotMesh;
   const runHotMeshWorkflow = async (): Promise<Types.JobOutput> => {
+    //hotmesh initializes just-in-time. it waits until the first
+    // http GET request to initialize the worker/engine routers
     if (!hotMesh) {
-      //initialize the `worker router`
       await initWorkerRouter();
-
-      //keep a ref to the `engine router`; it's the entry point to the mesh
       hotMesh = await initEngineRouter();
     }
-
-    console.log('Starting HotMesh workflow...');
     const result = await hotMesh.pubsub('greetMultiple', {});
     return result;
   };
 
-  // Combined Test Route
+  // Routes
   router.get('/', async (req, res) => {
     try {
       const [temporalResult, meshFlowResult, hotMeshResult] = await Promise.all([
@@ -65,52 +58,76 @@ export const testRoutes = (temporalClient: TemporalClient, hotMeshClient: Client
         runMeshFlowWorkflow(),
         runHotMeshWorkflow(),
       ]);
-      res.json({ temporalResult, meshFlowResult: meshFlowResult.data, hotMeshResult: hotMeshResult.data });
+      res.send(
+        renderTests(
+          'Combined Workflow Results', 
+          {
+            temporalResult,
+            meshFlowResult: meshFlowResult.data.response,
+            hotMeshResult: hotMeshResult.data,
+          },
+          getTraceUrl(meshFlowResult.metadata.trc),
+          getTraceUrl(hotMeshResult.metadata.trc),
+      ));
     } catch (error) {
-      console.error('Error processing workflows:', error);
-      res.status(500).json({ error: 'An error occurred while processing workflows' });
+      res.status(500).send(renderTests('Error', { error: 'An error occurred while processing workflows' }));
     }
   });
 
-  // Temporal Test Route
   router.get('/temporal', async (req, res) => {
     try {
-      res.json({ temporal: await runTemporalWorkflow() });
+      const result = await runTemporalWorkflow();
+      res.send(renderTests('Temporal Workflow Result', { temporal: result }));
     } catch (error) {
-      console.error('Error processing Temporal workflow:', error);
-      res.status(500).json({ error: 'An error occurred while processing the Temporal workflow' });
+      res.status(500).send(renderTests('Error', { error: 'An error occurred while processing the Temporal workflow' }));
     }
   });
 
-  // MeshFlow Test Route
   router.get('/meshflow', async (req, res) => {
     try {
       const jobOutput = await runMeshFlowWorkflow();
-      console.log(
-        'MeshFlow workflow result',
-        jobOutput,
-        getTraceUrl(jobOutput.metadata.trc),
-      );
-      res.json({ meshflow: jobOutput.data?.response });
+      res.send(
+        renderTests(
+          'MeshFlow Workflow Result',
+          { meshflow: jobOutput.data?.response },
+          getTraceUrl(jobOutput.metadata.trc),
+        )
+        );
     } catch (error) {
-      console.error('Error processing MeshFlow workflow:', error);
-      res.status(500).json({ error: 'An error occurred while processing the MeshFlow workflow' });
+      res.status(500).send(renderTests('Error', { error: 'An error occurred while processing the MeshFlow workflow' }));
     }
   });
 
-  // HotMesh Test Route
   router.get('/hotmesh', async (req, res) => {
     try {
       const jobOutput = await runHotMeshWorkflow();
-      console.log(
-        'HotMesh workflow result',
-        jobOutput,
-        getTraceUrl(jobOutput.metadata.trc),
+      res.send(
+        renderTests(
+          'HotMesh Workflow Result',
+          { hotmesh: jobOutput.data },
+          '',
+          getTraceUrl(jobOutput.metadata.trc),
+        )
       );
-      res.json({ hotmesh: jobOutput.data });
     } catch (error) {
-      console.error('Error processing HotMesh workflow:', error);
-      res.status(500).json({ error: 'An error occurred while processing the HotMesh workflow' });
+      res.status(500).send(renderTests('Error', { error: 'An error occurred while processing the HotMesh workflow' }));
+    }
+  });
+
+  router.get('/all', async (req, res) => {
+    try {
+      const [temporalResult, meshFlowResult, hotMeshResult] = await Promise.all([
+        runTemporalWorkflow(),
+        runMeshFlowWorkflow(),
+        runHotMeshWorkflow(),
+      ]);
+      res.send(renderTests('All Tests Results', {
+        temporalResult,
+        meshFlowResult: meshFlowResult.data,
+        hotMeshResult: hotMeshResult.data,
+      }));
+    } catch (error) {
+      res.status(500).send(renderTests('Error', { error: 'An error occurred while processing workflows' }));
     }
   });
 

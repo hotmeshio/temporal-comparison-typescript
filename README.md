@@ -2,13 +2,11 @@
 
 The `examples/` directory includes three modules that execute the same workflow using different engines. Each module produces identical inputs and outputs, showcasing how the same workflow can be implemented across these engines:
 
-- **`temporal`**: Temporal is a workflow engine that operates on a central app server.
-- **`hotmesh`**: HotMesh is a serverless workflow engine leveraging decentralized message routers.
-- **`meshflow`**: MeshFlow is HotMesh’s emulation of Temporal’s workflow engine.
+- **`Temporal`**: Temporal is a workflow engine that operates on a central app server.
+- **`HotMesh`**: HotMesh is a serverless workflow engine leveraging decentralized message routers.
+- **`MeshFlow`**: MeshFlow is HotMesh’s emulation of Temporal’s workflow engine (also serverless).
 
-HotMesh is serverless, with a pluggable backend that supports Postgres, Redis, and NATS interchangeably, while the APIs remain consistent across engines.
-
-| Temporal | HotMesh |
+| Temporal | HotMesh/MeshFlow |
 |:--------:|:-------:|
 | <img src="./docs/img/tmp.png" width="400"/> | <img src="./docs/img/hms.png" width="400"/> |
 
@@ -44,24 +42,9 @@ HotMesh is serverless, with a pluggable backend that supports Postgres, Redis, a
 
 ### Testing the Engines
 
-You can test each engine by sending HTTP GET requests to the following endpoints after the containers are loaded:
+You can test each engine by opening the console once the Express server is running. The server listens on port 3010 by default `http://localhost:3010/api/v1/test`. The console includes links to the dashboard for each engine and telemetry data.
 
-- **Temporal**:
-  ```bash
-  curl http://localhost:3010/api/v1/test/temporal
-  ```
-- **HotMesh**:
-  ```bash
-  curl http://localhost:3010/api/v1/test/hotmesh
-  ```
-- **MeshFlow**:
-  ```bash
-  curl http://localhost:3010/api/v1/test/meshflow
-  ```
-- **All Engines**:
-  ```bash
-  curl http://localhost:3010/api/v1/test
-  ```
+<img src="./docs/img/examples_console.png" width="600"/>
 
 ## Additional Resources
 
