@@ -1,8 +1,8 @@
-import { workflow } from '@hotmeshio/hotmesh';
+import { workflow, proxyActivities } from '@hotmeshio/hotmesh';
 import * as activities from '../activities';
 
-const { greet } = workflow.proxyActivities<typeof activities>({
-  activities, // Required for HotMesh
+const { greet } = proxyActivities<typeof activities>({
+  activities, // HotMesh requires activities to be passed in
   retryPolicy: {
     maximumAttempts: 5,
     maximumInterval: '1 minute',

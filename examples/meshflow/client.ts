@@ -1,11 +1,13 @@
-import { Connection, Client } from '@hotmeshio/hotmesh';
+import { Connection, Client, Utils } from '@hotmeshio/hotmesh';
 import { connection as dbConnection } from '../connection';
-import { v4 as uuid } from 'uuid';
 
+/**
+ * Run a MeshFlow workflow (HotMesh's Temporal equivalent)
+ */
 export const runClient = async () => {
   const connection = await Connection.connect(dbConnection);
   const client = new Client({ connection });
-  const workflowId = `greet-multiple-${uuid()}`;
+  const workflowId = `meshflow-${Utils.guid()}`;
 
   const handle = await client.workflow.start({
     workflowId,

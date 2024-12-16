@@ -7,6 +7,12 @@ app:
 
       expire: 3600
 
+      input:
+        schema:
+          type: object
+          properties:
+            workflowId: string
+
       output:
         schema:
           type: object
@@ -21,6 +27,8 @@ app:
       activities:
         t1:
           type: trigger
+          stats:
+            id: '{$self.input.data.workflowId}'
 
         w1:
           type: worker

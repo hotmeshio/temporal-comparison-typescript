@@ -1,6 +1,9 @@
 import { Connection, Client } from '@temporalio/client';
 import { v4 as uuid } from 'uuid';
 
+/**
+ * Run a Temporal workflow
+ */
 export const runClient = async() =>{
   const connection = await Connection.connect({ address: 'temporal:7233' });
   const client = new Client({
