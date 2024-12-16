@@ -6,7 +6,6 @@ import { testRoutes } from './routes/tests';
 import gracefulShutdown from './utils/gracefulShutdown';
 import { setupTelemetry } from '../modules/tracer';
 
-// Use process.cwd() for a CommonJS-like approach
 const appRoot = process.cwd();
 
 const app = express();
@@ -14,8 +13,12 @@ const port = 3010;
 
 (async () => {
   try {
-    console.log('Initializing client services...');
     setupTelemetry();
+
+    // Health Check
+    app.get('/health', (req, res) => {
+      res.status(200).send('OK');
+    });
 
     // Serve the favicon
     app.use('/favicon.ico', express.static(path.join(appRoot, 'docs/img/favicon.ico')));

@@ -30,6 +30,7 @@ export const testRoutes = (temporalClient: TemporalClient, hotMeshClient: Client
       taskQueue: 'example',
       workflowName: 'greetMultiple',
       args: [],
+      expire: 3600, //expire (soft delete) after 1hr
     });
     await handle.result();
     return await handle.hotMesh.getState(

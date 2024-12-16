@@ -1,0 +1,55 @@
+{
+  "databases": {
+    "postgres": {
+      "name": "Postgres",
+      "label": "postgres:latest",
+      "search": false,
+      "connection": {
+        "class": "pg",
+        "options": {
+          "connectionString": "postgresql://temporal:temporal@postgresql:5432/hotmesh"
+        }
+      }
+    }
+  },
+  "schemas": {
+    "hotmesh": {
+      "howdy": {},
+      "custom": {},
+      "bool": {}
+    },
+    "default": {
+      "id": {},
+      "plan": {},
+      "active": {}
+    }
+  },
+  "entities": {
+    "hotmesh": {
+      "type": "default",
+      "name": "hotmesh",
+      "schema": "hotmesh"
+    },
+    "default": {
+      "type": "default",
+      "name": "default",
+      "schema": "default"
+    }
+  },
+  "namespaces": {
+    "hotmesh": {
+      "name": "HotMesh Demo",
+      "type": "hotmesh",
+      "label": "HotMesh Demo",
+      "module": "hotmesh",
+      "entities": ["hotmesh"]
+    },
+    "meshflow": {
+      "name": "MeshFlow Demo",
+      "type": "meshflow",
+      "label": "MeshFlow Demo",
+      "module": "meshflow",
+      "entities": ["default"]
+    }
+  }
+}

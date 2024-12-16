@@ -5,6 +5,8 @@ app:
   graphs:
     - subscribes: greetMultiple
 
+      expire: 3600
+
       output:
         schema:
           type: object

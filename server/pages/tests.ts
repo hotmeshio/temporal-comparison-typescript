@@ -92,15 +92,10 @@ const renderTests = (
       <a href="/api/v1/test/hotmesh" class="button">HotMesh</a>
     </div>
     <pre><code class="json">${formattedData}</code></pre>
-    <div class="trace-links">
-      <strong>Open Telemetry</strong>: 
-      ${meshFlowTraceUrl ? `<a href="${meshFlowTraceUrl}" target="_blank">MeshFlow</a>|` : ''}
-      ${hotMeshTraceUrl ? `<a href="${hotMeshTraceUrl}" target="_blank">HotMesh</a>` : ''}
-    </div>
     <div class="dashboard-links">
       <strong>Dashboards</strong>: 
       <a href="http://localhost:8080" target="_blank">Temporal</a>|
-      <a href="http://localhost:3010" target="_blank">HotMesh</a>
+      <a href="http://localhost:8118/workflows" target="_blank">HotMesh</a>
     </div>
   </body>
   </html>`;

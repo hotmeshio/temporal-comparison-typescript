@@ -40,11 +40,17 @@ The `examples/` directory includes three modules that execute the same workflow 
     npm run docker:reset
     ```
 
-### Testing the Engines
+### Test Harness
 
-You can test each engine by opening the console once the Express server is running. The server listens on port 3010 by default `http://localhost:3010/api/v1/test`. The console includes links to the dashboard for each engine and telemetry data.
+You can run and compare the engines by opening the test harness landing page: `http://localhost:3010/api/v1/test`. The harness includes links to the dashboard for each engine and optional telemetry links if a telemetry sink is configured.
 
 <img src="./docs/img/examples_console.png" width="600"/>
+
+### Engine Dashboards
+
+Temporal and HotMesh Dashboards are available at:
+- `temporal` http://localhost:8080/
+- `hotmesh` http://localhost:8118/workflows
 
 ## Additional Resources
 
