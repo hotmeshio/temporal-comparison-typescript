@@ -47,8 +47,9 @@ export const testRoutes = (temporalClient: TemporalClient, hotMeshClient: HotMes
       await initWorkerRouter();
       hotMesh = await initEngineRouter();
     }
-    const workflowId = `hotmesh-${Utils.guid()}`
-    const result = await hotMesh.pubsub('greetMultiple', { workflowId });
+    const workflowId = `hotmesh-${Utils.guid()}`;
+    const TIMEOUT = 5_000;
+    const result = await hotMesh.pubsub('greetMultiple', { workflowId }, null, TIMEOUT);
     return result;
   };
 

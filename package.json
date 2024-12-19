@@ -1,6 +1,6 @@
 {
   "name": "temporal-patterns-typescript",
-  "version": "0.3.30",
+  "version": "0.3.32",
   "description": "Temporal pattern examples",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "@honeycombio/opentelemetry-node": "^0.7.2",
-    "@hotmeshio/hotmesh": "0.3.30",
+    "@hotmeshio/hotmesh": "0.3.32",
     "@opentelemetry/auto-instrumentations-node": "^0.47.1",
     "@opentelemetry/sdk-node": "^0.52.1",
     "@temporalio/client": "^1.10.3",
