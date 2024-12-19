@@ -99,7 +99,7 @@ services:
     command: ["sh", "-c", "npm install && npm run start:all"]
 
   hotmesh-ui:
-    image: hotmeshio/hotmesh-ui:v0.0.3
+    image: hotmeshio/hotmesh-ui:v0.0.5
     environment:
       NODE_ENV: ${NODE_ENV:-production}
       PORT: ${PORT:-8118}
@@ -109,6 +109,9 @@ services:
       HONEYCOMB_SERVICE_NAME: ${HONEYCOMB_SERVICE_NAME}
       HONEYCOMB_ENVIRONMENT: ${HONEYCOMB_ENVIRONMENT}
       OTEL_SERVICE_NAME: ${OTEL_SERVICE_NAME}
+      MAX_STREAM_RETRIES: ${MAX_STREAM_RETRIES:-2}
+      INITIAL_STREAM_BACKOFF: ${INITIAL_STREAM_BACKOFF:-10}
+      MAX_STREAM_BACKOFF: ${MAX_STREAM_BACKOFF:-20}
     volumes:
       - ./.hotmesh.config.json:/app/.hotmesh.config.json:ro
     ports:
